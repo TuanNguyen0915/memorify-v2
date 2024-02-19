@@ -2,32 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer components {
+  .root {
+    @apply w-full max-w-[1920px] min-h-screen mx-auto px-0
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  .flexCenter {
+    @apply flex items-center justify-center
+  }
+
+  .flexBetween {
+    @apply flex items-center justify-between
+  }
+
+  .sidebar {
+    @apply sticky top-0 left-0 max-md:hidden h-screen flex-col gap-10 overflow-auto py-6 min-w-[16rem]
+  }
+
+  .search-bar {
+    @apply flex-1 bg-transparent focus:outline-none text-textColor-100 font-semibold
+  }
+
+  .btn {
+    @apply rounded-lg  py-2 px-4 text-white bg-gradient-to-r from-primary-100 to-secondary-100
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+/*CLERK FORM*/
+.cl-headerTitle {
+  @apply text-center text-2xl text-secondary-100
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.cl-headerSubtitle {
+  @apply text-center text-lg text-secondary-200
+}
+
+.cl-socialButtonsBlockButton {
+  @apply hover:border-secondary-100 duration-500
+}
+
+.cl-dividerText {
+  @apply uppercase text-lg text-secondary-100
+}
+
+.cl-formButtonPrimary {
+  @apply bg-primary-100 hover:bg-secondary-100 duration-500 text-lg
+}
+
+.cl-footerActionText, .cl-footerActionLink {
+  @apply text-lg
+}
+
+.cl-footerActionLink {
+  @apply text-secondary-100 hover:text-primary-100 duration-500 hover:no-underline
 }
