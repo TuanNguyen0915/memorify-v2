@@ -1,8 +1,6 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import {createOrUpdateUser, deleteUser} from "@/lib/actions/user.action";
-import {NextResponse} from "next/server";
-
 
 export async function POST(req) {
 
@@ -50,14 +48,13 @@ export async function POST(req) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
   //TODO
   //- create or updated user
   if(eventType ==='user.created' || eventType ==='user.updated') {
     const {id,first_name,last_name,image_url,email_addresses , username} = evt.data
     try {
-      const user = await createOrUpdateUser(id,first_name,last_name,image_url,email_addresses , username)
+      await createOrUpdateUser(id,first_name,last_name,image_url,email_addresses , username)
       return new Response("Create or updated user", {status:201})
     } catch (err) {
       console.log(err)
@@ -71,6 +68,7 @@ export async function POST(req) {
     const {id} = evt.data
     try {
       await deleteUser(id)
+      return new Response("Deleted user", {status:201})
     } catch (err) {
       return new Response('Failure deleted user', {
         status:400
