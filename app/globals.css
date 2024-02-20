@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @layer components {
   .root {
     @apply w-full max-w-[1920px] min-h-screen mx-auto px-0
@@ -35,11 +45,17 @@
 }
 
 .cl-headerSubtitle {
-  @apply text-center text-lg text-secondary-200
+  @apply text-center text-lg
 }
 
 .cl-socialButtonsBlockButton {
   @apply hover:border-secondary-100 duration-500
+}
+.cl-socialButtonsProviderIcon  {
+  @apply scale-150
+}
+.cl-socialButtonsBlockButtonText {
+  @apply text-lg
 }
 
 .cl-dividerText {
@@ -56,4 +72,18 @@
 
 .cl-footerActionLink {
   @apply text-secondary-100 hover:text-primary-100 duration-500 hover:no-underline
+}
+
+/*MANAGEMENT FORM*/
+.cl-userPreviewMainIdentifier {
+  @apply text-xl text-secondary-100 font-bold
+}
+.cl-userPreviewSecondaryIdentifier{
+  @apply text-lg font-semibold
+}
+.cl-userButtonPopoverActionButtonText {
+  @apply text-base
+}
+.cl-userButtonPopoverActionButtonIconBox {
+  @apply scale-150
 }

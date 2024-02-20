@@ -11,7 +11,7 @@ const Topbar = () => {
   const [searchText, setSearchText] = useState('')
   const router = useRouter()
   return (
-    <div className='mt-6 w-full gap-10 flexBetween lg:w-3/4 max-lg:px-4'>
+    <div className='mt-6 w-full gap-10 max-lg:px-4 flexBetween lg:w-3/4'>
       <div
         className={`${
           searchText && 'opacity-100'
