@@ -26,7 +26,7 @@
   }
 
   .sidebar {
-    @apply sticky top-0 left-0 max-md:hidden h-screen flex-col gap-10 overflow-auto py-6 min-w-[16rem]
+    @apply sticky top-0 left-0 max-md:hidden h-screen flex-col gap-10 overflow-auto py-6 min-w-[18rem]
   }
 
   .search-bar {

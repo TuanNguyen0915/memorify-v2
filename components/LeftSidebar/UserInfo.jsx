@@ -24,19 +24,19 @@ const UserInfo = ({user}) => {
           className='rounded-full object-cover object-center hover:shadow-secondary-100 hover:shadow-2xl'
         />
         </div>
-        <p className='w-full text-center text-xl'>{user.username}</p>
+        <p className='w-full text-center text-xl'>{user.firstName} {user.lastName}</p>
       </div>
       <div className='w-full flexBetween'>
         <div className='w-full text-center'>
-          <p className='text-lg font-bold'>1</p>
+          <p className='text-lg font-bold'>later</p>
           <p>Posts</p>
         </div>
         <div className='w-full text-center'>
-          <p className='text-lg font-bold'>0</p>
+          <p className='text-lg font-bold'>{user.followers?.length}</p>
           <p>Followers</p>
         </div>
         <div className='w-full text-center'>
-          <p className='text-lg font-bold'>0</p>
+          <p className='text-lg font-bold'>{user.followings?.length}</p>
           <p>Following</p>
         </div>
       </div>
