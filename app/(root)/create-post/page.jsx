@@ -1,5 +1,5 @@
 "use client";
-import { Spinner } from "@/components/Spinner/Spiner";
+import { Spinner } from "@/components/Spinner/Spinner";
 import PostForm from "@/components/form/PostForm";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
