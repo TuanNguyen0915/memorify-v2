@@ -7,7 +7,7 @@ const Bottombar = () => {
   const pathname = usePathname()
   const router = useRouter()
   return (
-    <footer className='sticky right-0 bottom-0 left-0 z-10 w-full bg-black/50 px-4 lg:hidden'>
+    <footer className='sticky bottom-0 left-0 right-0 z-20 w-full px-4 bg-black rounded-t-lg lg:hidden'>
       <div className='w-full gap-5 py-5 flexBetween'>
         {navLinks.map((link) => {
           const isActive = pathname === link.route

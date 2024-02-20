@@ -11,7 +11,7 @@ const Layout = ({children}) => {
       </aside>
       <section className='flex flex-1 flex-col items-center gap-10 overflow-y-scroll no-scrollbar'>
         <Topbar/>
-        <div className='flex w-full flex-1 flex-col gap-10'>{children}</div>
+        <div className='w-full flex-1 flex-col gap-10 flex items-center'>{children}</div>
         <Bottombar/>
       </section>
       <aside className="hidden lg:flex">

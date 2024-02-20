@@ -36,6 +36,12 @@
   .btn {
     @apply rounded-lg  py-2 px-4 text-white bg-gradient-to-r from-primary-100 to-secondary-100
   }
+  .input-field {
+    @apply w-full lg:text-xl mt-4 bg-slate-950 p-6 text-textColor-100 rounded-xl focus:bg-slate-900 focus:outline-none
+  }
+  .label-field {
+    @apply text-textColor-100 text-3xl font-bold
+  }
 }
 
 
