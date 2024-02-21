@@ -4,7 +4,7 @@ import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const PostForm = ({ post, apiEndPoint }) => {
+const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
   const {
     register,
     handleSubmit,
@@ -31,7 +31,7 @@ const PostForm = ({ post, apiEndPoint }) => {
         body: postForm,
       });
       if (res.ok) {
-        router.push(`/profile/${data.creator}`);
+        router.push(`/profile/${creatorClerkId}`);
       }
     } catch (error) {
       console.log(`Upload fail ${error}`);

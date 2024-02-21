@@ -22,7 +22,7 @@ const UserInfo = ({ user }) => {
           </div>
           <div className="flexCenter w-full flex-col gap-2">
             <div className="relative h-[70px] w-[70px] rounded-full"
-            onClick={()=>{router.push(`/profile/${user._id}`)}}>
+            onClick={()=>{router.push(`/profile/${user.clerkId}`)}}>
               <Image
                 src={user.profilePhoto}
                 alt="user avatar"

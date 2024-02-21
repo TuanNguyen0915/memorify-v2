@@ -9,7 +9,6 @@ const UserCard = ({ user }) => {
   const { user: userClerkId } = useUser();
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
   useEffect(() => {
     try {
       setLoading(true);
@@ -25,10 +24,15 @@ const UserCard = ({ user }) => {
       setLoading(false);
     }
   }, [userClerkId]);
-  useEffect(() => {
-    if (currentUser?.followings?.includes(user._id)) setIsFollowing(true);
-    else setIsFollowing(false);
-  }, [currentUser]);
+
+  const isFollowing = currentUser?.followings?.includes(user._id);
+  
+  const handleUnfollow =()=> {
+    console.log("handleUnfollow")
+  }
+  const handleFollow =()=> {
+    console.log('handleFollow')
+  }
   return (
     <>
       {loading ? (
@@ -37,7 +41,7 @@ const UserCard = ({ user }) => {
         <div className="flexBetween w-full gap-10 border-b border-b-slate-600 p-4 xl:w-3/4">
           <div className="flexBetween w-full">
             <Link
-              href={`/profile/${user._id}`}
+              href={`/profile/${user.clerkId}`}
               className="flexCenter group gap-4 "
             >
               <>
@@ -62,9 +66,9 @@ const UserCard = ({ user }) => {
             </Link>
           </div>
           {isFollowing ? (
-            <TiUserDelete className="size-8 cursor-pointer duration-500 hover:text-indigo-500" />
+            <TiUserDelete className="size-8 cursor-pointer duration-500 hover:text-indigo-500" onClick={handleUnfollow}/>
           ) : (
-            <TiUserAdd className="size-8 cursor-pointer duration-500 hover:text-indigo-500" />
+            <TiUserAdd className="size-8 cursor-pointer duration-500 hover:text-indigo-500" onClick={handleFollow}/>
           )}
         </div>
       )}

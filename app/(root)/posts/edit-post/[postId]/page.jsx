@@ -1,11 +1,12 @@
 "use client";
 import { Spinner } from "@/components/Spinner/Spinner";
-import PostForm from "@/components/form/PostForm";
+import PostForm from "@/components/Form/PostForm";
 import { useEffect, useState } from "react";
 
 const EditPost = ({ params }) => {
   const [loading, setLoading] = useState(false);
   const [postData, setPostData] = useState({});
+  const [creatorClerkId, setCreatorClerkId] = useState(null);
   const getPost = async () => {
     try {
       setLoading(true);
@@ -17,6 +18,7 @@ const EditPost = ({ params }) => {
         tag: data.tag,
         postPhoto: data.postPhoto,
       });
+      setCreatorClerkId(data.creator?.clerkId);
     } catch (error) {
       console.log(error);
       throw new Error(error);
@@ -36,7 +38,7 @@ const EditPost = ({ params }) => {
           <Spinner />
         </>
       ) : (
-        <PostForm post={postData} apiEndPoint={`/api/post/${params.postId}`} />
+        <PostForm post={postData} apiEndPoint={`/api/post/${params.postId}`} creatorClerkId={creatorClerkId}/>
       )}
     </div>
   );

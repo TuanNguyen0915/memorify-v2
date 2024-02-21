@@ -1,6 +1,6 @@
 "use client";
 import { Spinner } from "@/components/Spinner/Spinner";
-import PostForm from "@/components/form/PostForm";
+import PostForm from "@/components/Form/PostForm";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
@@ -35,11 +35,9 @@ const CreatePostPage = () => {
   return (
     <div className="w-full gap-10 p-4 xl:w-3/4">
       {loading || !isLoaded ? (
-        
-          <Spinner />
-        
+        <Spinner />
       ) : (
-        <PostForm post={postData} apiEndPoint="/api/post/new" />
+        <PostForm post={postData} apiEndPoint="/api/post/new" creatorClerkId={userData.clerkId}/>
       )}
     </div>
   );
