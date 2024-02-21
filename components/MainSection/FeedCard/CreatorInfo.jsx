@@ -7,8 +7,8 @@ import { BiSolidEditAlt } from "react-icons/bi";
 const CreatorInfo = ({ post }) => {
   const { user } = useUser();
   return (
-    <div className="flexBetween w-full">
-      <Link href={`/profile/${post?.creator?._id}`} className="flexCenter gap-4 group ">
+    <div className="w-full flexBetween">
+      <Link href={`/profile/${post?.creator?.clerkId}`} className="gap-4 flexCenter group">
         <>
           <div>
             <Image
@@ -20,10 +20,10 @@ const CreatorInfo = ({ post }) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-bold group-hover:text-indigo-500 duration-500 ">
+            <p className="font-bold duration-500 group-hover:text-indigo-500">
               {post?.creator?.firstName} {post?.creator?.lastName}
             </p>
-            <p className="text-sm text-textColor-200 group-hover:text-textColor-100 duration-500">@{post?.creator?.username}</p>
+            <p className="text-sm duration-500 text-textColor-200 group-hover:text-textColor-100">@{post?.creator?.username}</p>
           </div>
         </>
       </Link>
@@ -32,7 +32,7 @@ const CreatorInfo = ({ post }) => {
       {post?.creator?.clerkId === user?.id && (
         <div className="flex justify-end">
           <Link href={`/posts/edit-post/${post?._id}`}>
-            <BiSolidEditAlt className="size-10 cursor-pointer duration-500 hover:text-indigo-500" />
+            <BiSolidEditAlt className="cursor-pointer duration-500 size-10 hover:text-indigo-500" />
           </Link>
         </div>
       )}

@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
     }
   }, [user]);
   return (
-    <main className="root flex gap-10">
+    <main className="flex gap-10 root">
       {loading || !isLoaded ? (
           <Spinner />
       ) : (
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
           <LeftSidebar user={userData} />
         </aside>
       )}
-      <section className="no-scrollbar flex max-h-screen flex-1 flex-col items-center gap-10 overflow-y-scroll">
+      <section className="flex max-h-screen flex-1 flex-col items-center gap-10 overflow-y-scroll no-scrollbar">
         <Topbar />
         <div className="flex w-full flex-1 flex-col items-center gap-10">
           {children}

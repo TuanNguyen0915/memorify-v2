@@ -16,8 +16,8 @@ const NavLinks = () => {
             }}
             key={link.name}
             className={` ${
-              isActive && 'bg-primary-100'
-            } flex items-center gap-4 text-lg p-4 rounded-xl hover:bg-indigo-800 duration-300`}
+              isActive && 'bg-primary-100 hover:text-white'
+            } flex items-center gap-4 text-lg p-4 rounded-xl hover:text-primary-100 duration-300`}
           >
             <p className='scale-150 flexCenter'>{link.icon}</p>
             {link.name}

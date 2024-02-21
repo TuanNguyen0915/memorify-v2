@@ -24,7 +24,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className="flex w-full items-center flex-col max-xl:px-4">
+    <section className="flex w-full flex-col items-center max-xl:px-4">
       {loading ? (
         
           <Spinner />

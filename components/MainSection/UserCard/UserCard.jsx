@@ -38,11 +38,11 @@ const UserCard = ({ user }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flexBetween w-full gap-10 border-b border-b-slate-600 p-4 xl:w-3/4">
-          <div className="flexBetween w-full">
+        <div className="w-full gap-10 border-b border-b-slate-600 p-4 flexBetween xl:w-3/4">
+          <div className="w-full flexBetween">
             <Link
               href={`/profile/${user.clerkId}`}
-              className="flexCenter group gap-4 "
+              className="gap-4 flexCenter group"
             >
               <>
                 <div>
@@ -58,7 +58,7 @@ const UserCard = ({ user }) => {
                   <p className="font-bold duration-500 group-hover:text-indigo-500 xl:text-2xl">
                     {user.firstName} {user.lastName}
                   </p>
-                  <p className="text-sm text-textColor-200 duration-500 group-hover:text-textColor-100 xl:text-lg">
+                  <p className="text-sm duration-500 text-textColor-200 group-hover:text-textColor-100 xl:text-lg">
                     @{user.username}
                   </p>
                 </div>
@@ -66,9 +66,9 @@ const UserCard = ({ user }) => {
             </Link>
           </div>
           {isFollowing ? (
-            <TiUserDelete className="size-8 cursor-pointer duration-500 hover:text-indigo-500" onClick={handleUnfollow}/>
+            <TiUserDelete className="cursor-pointer duration-500 size-8 hover:text-indigo-500" onClick={handleUnfollow}/>
           ) : (
-            <TiUserAdd className="size-8 cursor-pointer duration-500 hover:text-indigo-500" onClick={handleFollow}/>
+            <TiUserAdd className="cursor-pointer duration-500 size-8 hover:text-indigo-500" onClick={handleFollow}/>
           )}
         </div>
       )}

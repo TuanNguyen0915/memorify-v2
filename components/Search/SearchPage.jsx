@@ -8,8 +8,8 @@ const SearchPage = ({ searchedByPosts, searchedByPeople }) => {
   const [isPostToggle, setIsPostToggle] = useState(true);
 
   return (
-    <div className="flexCenter w-full flex-col">
-      <div className="flexCenter mt-4 w-full gap-10 px-4 xl:mt-10">
+    <div className="w-full flex-col flexCenter">
+      <div className="mt-4 w-full gap-10 px-4 flexCenter xl:mt-10">
         <button
           onClick={() => setIsPostToggle(true)}
           className={`btn-submit xl:min-w-[15rem] max-xl:w-full  ${isPostToggle ? "opacity-100" : "opacity-50"} flexCenter `}

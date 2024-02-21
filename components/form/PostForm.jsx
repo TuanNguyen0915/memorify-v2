@@ -1,8 +1,8 @@
 "use client";
-import { useForm } from "react-hook-form";
-import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import {useForm} from "react-hook-form";
+import {MdOutlineAddPhotoAlternate} from "react-icons/md";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 
 const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
   const {
@@ -43,8 +43,8 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
       onSubmit={handleSubmit(publishPost)}
     >
       {/*UPLOAD PHOTO OR EDIT PHOTO*/}
-      <div className="flexCenter w-full ">
-        <label htmlFor="photo" className="group cursor-pointer">
+      <div className="w-full flexCenter">
+        <label htmlFor="photo" className="cursor-pointer group">
           {watch("postPhoto") ? (
             typeof watch("postPhoto") === "string" ? (
               <Image
@@ -52,7 +52,7 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
                 alt="post photo"
                 width={1000}
                 height={1000}
-                className="max-h-[50vh] max-w-full rounded-lg object-contain"
+                className="max-w-full rounded-lg object-contain max-h-[50vh]"
               />
             ) : (
               watch("postPhoto")?.length > 0 && (
@@ -61,13 +61,14 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
                   alt="post photo"
                   width={1000}
                   height={1000}
-                  className="max-h-[50vh] max-w-full rounded-lg object-contain"
+                  className="max-w-full rounded-lg object-contain max-h-[50vh]"
                 />
               )
             )
           ) : (
             <div className="flex items-center gap-10">
-              <MdOutlineAddPhotoAlternate className="size-24 text-textColor-100 duration-300 group-hover:text-primary-100 xl:size-52" />
+              <MdOutlineAddPhotoAlternate
+                className="duration-300 size-24 text-textColor-100 group-hover:text-primary-100 xl:size-52"/>
               <p className="text-center text-xl font-bold text-primary-100 group-hover:text-textColor-100">
                 {" "}
                 Select a file{" "}

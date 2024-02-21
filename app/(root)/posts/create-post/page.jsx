@@ -37,7 +37,7 @@ const CreatePostPage = () => {
       {loading || !isLoaded ? (
         <Spinner />
       ) : (
-        <PostForm post={postData} apiEndPoint="/api/post/new" creatorClerkId={userData.clerkId}/>
+        <PostForm post={postData} apiEndPoint="/api/post/new" creatorClerkId={userData?.clerkId}/>
       )}
     </div>
   );
