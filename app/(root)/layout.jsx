@@ -30,20 +30,20 @@ const Layout = ({ children }) => {
   return (
     <main className="root flex gap-10">
       {loading || !isLoaded ? (
-        <Spinner />
+          <Spinner />
       ) : (
-        <aside className="hidden lg:flex">
+        <aside className="hidden xl:flex">
           <LeftSidebar user={userData} />
         </aside>
       )}
-      <section className="no-scrollbar max-h-screen flex flex-1 flex-col items-center gap-10 overflow-y-scroll">
+      <section className="no-scrollbar flex max-h-screen flex-1 flex-col items-center gap-10 overflow-y-scroll">
         <Topbar />
         <div className="flex w-full flex-1 flex-col items-center gap-10">
           {children}
         </div>
         <Bottombar />
       </section>
-      <aside className="hidden lg:flex">
+      <aside className="hidden xl:flex">
         <RightSidebar />
       </aside>
     </main>

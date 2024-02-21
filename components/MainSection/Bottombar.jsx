@@ -8,7 +8,7 @@ const Bottombar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flexBetween sticky bottom-0 left-0 right-0 z-20 w-full rounded-t-lg bg-black/80 backdrop-blur-lg py-4 px-6 lg:hidden">
+    <div className="flexBetween sticky bottom-0 left-0 right-0 z-20 w-full rounded-t-lg bg-black/80 backdrop-blur-lg py-4 px-6 xl:hidden">
       {navLinks.map((link) => {
         const isActive = pathname === link.route;
         return (

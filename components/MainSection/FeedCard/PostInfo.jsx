@@ -3,7 +3,7 @@ import Image from "next/image";
 const PostInfo = ({ post }) => {
   return (
     <>
-      <h2 className="text-xl font-semibold text-textColor-100 lg:text-2xl">
+      <h2 className="text-xl font-semibold text-textColor-100 xl:text-2xl">
         {post?.caption}
       </h2>
       <div className="flexCenter w-full">

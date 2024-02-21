@@ -42,6 +42,9 @@
   .label-field {
     @apply text-textColor-100 text-3xl font-bold
   }
+  .btn-submit {
+    @apply rounded-lg bg-primary-100 p-4 uppercase duration-300 hover:bg-secondary-100 lg:text-xl
+  }
 }
 
 

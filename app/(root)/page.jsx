@@ -10,7 +10,8 @@ const HomePage = () => {
     try {
       setLoading(true);
       const res = await fetch("api/post");
-      const data = await res.json();
+      let data = await res.json();
+      data = await data.reverse()
       setPosts(data);
     } catch (error) {
       console.log(error);
@@ -23,9 +24,11 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className="flex w-full items-center flex-col max-lg:px-4">
+    <section className="flex w-full items-center flex-col max-xl:px-4">
       {loading ? (
-        <Spinner />
+        
+          <Spinner />
+        
       ) : (
         posts && posts.map((post) => <FeedCard post={post} key={post._id} />)
       )}

@@ -9,7 +9,7 @@ export const navLinks = [
     icon: <MdOutlineHome/>
   }, {
     name: "Create Post",
-    route: '/create-post',
+    route: '/posts/create-post',
     icon: <LuImagePlus/>
   }, {
     name: "People",

@@ -3,8 +3,6 @@ import UserInfo from "@/components/LeftSidebar/UserInfo";
 import UserManagement from "@/components/LeftSidebar/UserManagement";
 import NavLinks from "@/components/LeftSidebar/NavLinks";
 import { SignedIn, useUser } from "@clerk/nextjs";
-// import { useEffect, useState } from "react";
-import { Spinner } from "../Spinner/Spinner";
 
 const LeftSidebar = ({ user }) => {
   // const [loading, setLoading] = useState(false);
@@ -29,20 +27,6 @@ const LeftSidebar = ({ user }) => {
   // }, [user]);
 
   return (
-    
-    // <div className="sidebar flexBetween flex-col gap-10 px-4">
-    //   {loading || !isLoaded ? (
-    //     <Spinner />
-    //   ) : (
-    //     userData && (
-    //       <SignedIn>
-    //         <UserInfo user={userData} />
-    //         <NavLinks />
-    //         <UserManagement />
-    //       </SignedIn>
-    //     )
-    //   )}
-    // </div>
 
     <div className="sidebar flexBetween flex-col gap-10 px-4">
       <SignedIn>
