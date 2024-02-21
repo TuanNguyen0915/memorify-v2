@@ -1,6 +1,6 @@
 "use client";
 import { Spinner } from "@/components/Spinner/Spinner";
-import PostForm from "@/components/Form/PostForm";
+import PostForm from "@/components/form/PostForm";
 import { useEffect, useState } from "react";
 
 const EditPost = ({ params }) => {
@@ -38,7 +38,11 @@ const EditPost = ({ params }) => {
           <Spinner />
         </>
       ) : (
-        <PostForm post={postData} apiEndPoint={`/api/post/${params.postId}`} creatorClerkId={creatorClerkId}/>
+        <PostForm
+          post={postData}
+          apiEndPoint={`/api/post/${params.postId}`}
+          creatorClerkId={creatorClerkId}
+        />
       )}
     </div>
   );

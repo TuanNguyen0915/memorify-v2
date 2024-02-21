@@ -1,5 +1,5 @@
 "use client";
-import PostForm from "@/components/Form/PostForm";
+import PostForm from "@/components/form/PostForm";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
@@ -37,7 +37,11 @@ const CreatePostPage = () => {
       {loading || !isLoaded ? (
         <Spinner />
       ) : (
-        <PostForm post={postData} apiEndPoint="/api/post/new" creatorClerkId={userData?.clerkId}/>
+        <PostForm
+          post={postData}
+          apiEndPoint="/api/post/new"
+          creatorClerkId={userData?.clerkId}
+        />
       )}
     </div>
   );
