@@ -9,7 +9,7 @@ const FeedCard = ({ post }) => {
   const [isLike, setIsLike] = useState(false);
   const [isSave, setIsSave] = useState(false);
   return (
-    <div className="my-4 flex w-full flex-col gap-4 rounded-lg bg-slate-950 p-4 xl:p-10">
+    <div className="my-4 flex w-full flex-col gap-4 rounded-lg bg-slate-950 p-4 hover:border hover:border-textColor-500 xl:p-10">
       <CreatorInfo post={post} />
       {/* POST INFO */}
       <PostInfo post={post} />

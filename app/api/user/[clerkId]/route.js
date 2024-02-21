@@ -5,12 +5,12 @@ export const GET = async (req, { params }) => {
   //posts likePosts savePosts
   try {
     await connectDB()
-    const user = await User.findOne({ clerkId: params.id }).populate([
+    const user = await User.findOne({ clerkId: params.clerkId }).populate([
       'followers',
       'followings',
-      // 'posts',
-      // 'likePosts',
-      // 'savePosts',
+      'posts',
+      'likePosts',
+      'savePosts',
     ])
     return new Response(JSON.stringify(user), { status: 200 })
   } catch (err) {
