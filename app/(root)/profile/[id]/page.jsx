@@ -17,14 +17,15 @@ const ProfilePage = ({ params }) => {
 
   const [btnId, setBtnId] = useState(1);
 
+  const fetchData = async () => {
+    const data = await getUser(params?.id);
+    setSelectedUser(data);
+    setLoading(false);
+  };
+
   useEffect(() => {
     try {
       setLoading(true);
-      const fetchData = async () => {
-        const data = await getUser(params?.id);
-        setSelectedUser(data);
-        setLoading(false);
-      };
       fetchData();
     } catch (error) {
       handleError(error);
@@ -54,7 +55,7 @@ const ProfilePage = ({ params }) => {
             ))}
           </div>
           {/* SHOW INFO BASE ON BUTTON CLICK */}
-          <ShowContent btnId={btnId} user={selectedUser} />
+          <ShowContent btnId={btnId} user={selectedUser} update={fetchData} />
         </div>
       )}
     </div>

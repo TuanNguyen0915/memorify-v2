@@ -26,6 +26,15 @@ export const unfollow = async(currentId, selectedId) => {
   return data
 }
 
+
+export const savePost = async(currentId,postId) => {
+  const res = await fetch(`/api/user/${currentId}/save/${postId}`, {
+    method: "POST"
+  })
+  const data = await res.json()
+  return data
+}
+
 export const handleError = (error) => {
   console.log(error);
   throw new Error(error);

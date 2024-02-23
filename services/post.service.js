@@ -1,3 +1,9 @@
+export const getAllPosts = async() => {
+  const res = await fetch("/api/post");
+  const data = await res.json();
+  return data
+}
+
 export const getPost = async (postId) => {
   const res = await fetch(`/api/post/${postId}`);
   const data = await res.json();

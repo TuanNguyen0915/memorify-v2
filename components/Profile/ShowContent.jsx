@@ -1,9 +1,9 @@
 "use client";
 import FeedCard from "../MainSection/FeedCard/FeedCard";
-import UserCard from "../MainSection/UserCard/UserCard";
 import { Spinner } from "../Spinner/Spinner";
+import FollowCard from "./FollowCard";
 
-const ShowContent = ({ btnId, user }) => {
+const ShowContent = ({ btnId, user, update }) => {
   if (!user) return <Spinner />;
   return (
     <div className="w-full">
@@ -17,7 +17,7 @@ const ShowContent = ({ btnId, user }) => {
       {btnId === 2 && (
         <div className="flex w-full flex-col items-center max-xl:px-4">
           {user.followers?.map((person) => (
-            <UserCard user={person} key={person._id} />
+            <FollowCard user={person} key={person._id} update={update}/>
           ))}
         </div>
       )}
@@ -25,7 +25,7 @@ const ShowContent = ({ btnId, user }) => {
       {btnId === 3 && (
         <div className="flex w-full flex-col items-center max-xl:px-4">
           {user.followings?.map((person) => (
-            <UserCard user={person} key={person._id} />
+            <FollowCard user={person} key={person._id} update={update}/>
           ))}
         </div>
       )}
