@@ -56,6 +56,7 @@ const FeedCard = ({ post, update }) => {
       const data = await likePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
       getUpdatePost();
+      if(update) update()
     } catch (error) {
       handleError(error);
     }
