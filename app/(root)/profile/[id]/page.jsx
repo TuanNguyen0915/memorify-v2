@@ -23,11 +23,11 @@ const ProfilePage = ({ params }) => {
       const fetchData = async () => {
         const data = await getUser(params?.id);
         setSelectedUser(data);
-        setLoading(false)
+        setLoading(false);
       };
       fetchData();
     } catch (error) {
-      handleError(error)
+      handleError(error);
     }
   }, [params.id]);
 
@@ -37,9 +37,11 @@ const ProfilePage = ({ params }) => {
         <Spinner />
       ) : (
         // USER INFORMATION
-        <div className="flexCenter w-full flex-col gap-10 p-4 xl:w-3/4">
-          <UserInfo user={selectedUser} />
-          <div className="flex w-full flex-wrap items-center gap-2 md:justify-center lg:justify-between xl:gap-10">
+        <div className="flexCenter w-full flex-col gap-10 p-4">
+          <div className="w-full xl:w-3/4">
+            <UserInfo user={selectedUser} />
+          </div>
+          <div className="flex w-full flex-wrap items-center gap-2 md:justify-center lg:justify-between xl:w-3/4 xl:gap-10">
             {/* BUTTONS */}
             {buttons.map((button) => (
               <button
