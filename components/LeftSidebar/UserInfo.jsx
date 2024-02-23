@@ -21,7 +21,7 @@ const UserInfo = ({ user }) => {
             </Link>
           </div>
           <div className="w-full flex-col gap-2 flexCenter">
-            <div className="relative rounded-full h-[70px] w-[70px]"
+            <div className="relative rounded-full  h-[100px] w-[100px]"
             onClick={()=>{router.push(`/profile/${user.clerkId}`)}}>
               <Image
                 src={user.profilePhoto}
@@ -34,8 +34,9 @@ const UserInfo = ({ user }) => {
             <p className="w-full text-center text-xl">
               {user.firstName} {user.lastName}
             </p>
+            <p className="w-full text-center italic text-textColor-200">@{user.username}</p>
           </div>
-          <div className="w-full flexBetween">
+          {/* <div className="w-full flexBetween">
             <div className="w-full text-center">
               <p className="text-lg font-bold text-secondary-100">{user.posts?.length}</p>
               <p>Posts</p>
@@ -48,7 +49,7 @@ const UserInfo = ({ user }) => {
               <p className="text-lg font-bold text-secondary-100">{user.followings?.length}</p>
               <p>Following</p>
             </div>
-          </div>
+          </div> */}
         </>
       )}
     </div>

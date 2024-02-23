@@ -1,6 +1,7 @@
 import {MdOutlineHome} from "react-icons/md";
 import {LuImagePlus} from "react-icons/lu";
 import {IoPeopleOutline} from "react-icons/io5";
+import { HiBookmark } from "react-icons/hi2";
 
 export const navLinks = [
   {
@@ -11,9 +12,22 @@ export const navLinks = [
     name: "Create Post",
     route: '/posts/create-post',
     icon: <LuImagePlus/>
-  }, {
+  },
+  {
+    name: "Saved",
+    route: '/saved',
+    icon: <HiBookmark/>
+  },
+  {
     name: "People",
     route: '/user',
     icon: <IoPeopleOutline/>
   },
 ]
+
+
+export const buttons = [
+  { id: 1, text: "Posts", length: "selectedUser?.posts?.length" },
+  { id: 2, text: "Followers", length: "selectedUser?.followers?.length" },
+  { id: 3, text: "Followings", length: "selectedUser?.followings?.length" },
+];

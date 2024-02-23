@@ -1,30 +1,30 @@
-'use client'
-import {navLinks} from '@/constants'
-import {usePathname, useRouter} from 'next/navigation'
+"use client";
+import { navLinks } from "@/constants";
+import { usePathname, useRouter } from "next/navigation";
 
 const NavLinks = () => {
-  const pathname = usePathname()
-  const router = useRouter()
+  const pathname = usePathname();
+  const router = useRouter();
   return (
-    <div className='w-full flex-1 flex-col gap-5 border-y-4 border-white py-10'>
+    <div className="w-full flex-1 flex-col gap-5 border-y-4 border-white py-10">
       {navLinks.map((link) => {
-        const isActive = pathname === link.route
+        const isActive = pathname === link.route;
         return (
           <div
             onClick={() => {
-              router.push(link.route)
+              router.push(link.route);
             }}
             key={link.name}
-            className={` ${
-              isActive && 'bg-primary-100 hover:text-white'
-            } flex items-center gap-4 text-lg p-4 rounded-xl hover:text-primary-100 duration-300`}
+            className={`${
+              isActive && "bg-primary-100 hover:text-white"
+            } flex items-center gap-4 rounded-xl p-4 text-lg duration-300 hover:text-primary-100 cursor-pointer`}
           >
-            <p className='scale-150 flexCenter'>{link.icon}</p>
+            <p className="flexCenter scale-150">{link.icon}</p>
             {link.name}
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
-export default NavLinks
+  );
+};
+export default NavLinks;

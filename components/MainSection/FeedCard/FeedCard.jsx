@@ -8,7 +8,7 @@ import { HiOutlineBookmark, HiBookmark } from "react-icons/hi2";
 import { useUser } from "@clerk/nextjs";
 import { getUser, handleError, savePost } from "@/services/user.service";
 
-const FeedCard = ({ post }) => {
+const FeedCard = ({ post, update }) => {
   const { user: currentUserClerk } = useUser();
   const [isLike, setIsLike] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -31,6 +31,7 @@ const FeedCard = ({ post }) => {
     try {
       const data = await savePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
+      if(update) update()
     } catch (error) {
       handleError(error);
     }
