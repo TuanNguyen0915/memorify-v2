@@ -1,30 +1,36 @@
-import {MdOutlineHome} from "react-icons/md";
-import {LuImagePlus} from "react-icons/lu";
-import {IoPeopleOutline} from "react-icons/io5";
+import { MdOutlineHome } from "react-icons/md";
+import { LuImagePlus } from "react-icons/lu";
+import { IoPeopleOutline } from "react-icons/io5";
 import { HiBookmark } from "react-icons/hi2";
+import { GoHeartFill } from "react-icons/go";
 
 export const navLinks = [
   {
-    name: 'Home',
-    route: '/',
-    icon: <MdOutlineHome/>
-  }, {
+    name: "Home",
+    route: "/",
+    icon: <MdOutlineHome />,
+  },
+  {
     name: "Create Post",
-    route: '/posts/create-post',
-    icon: <LuImagePlus/>
+    route: "/posts/create-post",
+    icon: <LuImagePlus />,
   },
   {
     name: "Saved",
-    route: '/saved',
-    icon: <HiBookmark/>
+    route: "/saved",
+    icon: <HiBookmark />,
+  },
+  {
+    name: "Liked",
+    route: "/liked",
+    icon: <GoHeartFill />,
   },
   {
     name: "People",
-    route: '/user',
-    icon: <IoPeopleOutline/>
+    route: "/user",
+    icon: <IoPeopleOutline />,
   },
-]
-
+];
 
 export const buttons = [
   { id: 1, text: "Posts", length: "selectedUser?.posts?.length" },

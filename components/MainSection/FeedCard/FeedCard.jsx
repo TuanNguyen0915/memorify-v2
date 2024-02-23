@@ -14,7 +14,7 @@ import {
 } from "@/services/user.service";
 import { getPost } from "@/services/post.service";
 
-const FeedCard = ({ post }) => {
+const FeedCard = ({ post, update }) => {
   const { user: currentUserClerk } = useUser();
   const [currentUser, setCurrentUser] = useState(null);
   const [updatedPost, setUpdatedPost] = useState(null);
@@ -22,39 +22,40 @@ const FeedCard = ({ post }) => {
   const getUpdatePost = async () => {
     try {
       const data = await getPost(post?._id);
-      
+
       setUpdatedPost(data);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     }
-  }
+  };
+  const updatedCurrentUser = async () => {
+    const data = await getUser(currentUserClerk?.id);
+    setCurrentUser(data);
+  };
 
   //*TODO: handle save or un-save post
   const isSave = currentUser?.savePosts?.find(
     (item) => item?._id === post?._id,
   );
-  const handleSave = async (e) => {
-    e.stopPropagation();
+  const handleSave = async () => {
     try {
       const data = await savePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
+      if (update) update()
     } catch (error) {
       handleError(error);
     }
   };
 
-
-
   //*TODO: handle like or un-like post
   const isLike = currentUser?.likePosts?.find(
     (item) => item?._id === post?._id,
   );
-  const handleLike = async (e) => {
-    e.stopPropagation();
+  const handleLike = async () => {
     try {
       const data = await likePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
-      getUpdatePost()
+      getUpdatePost();
     } catch (error) {
       handleError(error);
     }
@@ -62,17 +63,12 @@ const FeedCard = ({ post }) => {
 
   useEffect(() => {
     try {
-      const fetchData = async () => {
-        const data = await getUser(currentUserClerk?.id);
-        setCurrentUser(data);
-      };
-      getUpdatePost()
-      fetchData();
+      getUpdatePost();
+      updatedCurrentUser()
     } catch (error) {
       handleError(error);
     }
   }, [currentUserClerk, post]);
-
 
   return (
     <>
