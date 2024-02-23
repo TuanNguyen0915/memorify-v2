@@ -20,7 +20,7 @@ const ProfilePage = ({ params }) => {
     try {
       setLoading(true);
       const fetchData = async () => {
-        const res = await fetch(`/api/user/${params.id}`);
+        const res = await fetch(`/api/user/${params?.id}`);
         const data = await res.json();
         setSelectedUser(data);
         setLoading(false)

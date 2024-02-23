@@ -29,7 +29,7 @@ const UserInfo = ({ user }) => {
   const handleAddFollow = async () => {
     try {
       const res = await fetch(
-        `/api/user/${currentUser.clerkId}/follow/${user._id}`,
+        `/api/user/${currentUser?.clerkId}/follow/${user?._id}`,
         {
           method: "POST",
         },
@@ -45,7 +45,7 @@ const UserInfo = ({ user }) => {
   const handleUnFollow = async () => {
     try {
       const res = await fetch(
-        `/api/user/${currentUser.clerkId}/unfollow/${user._id}`,
+        `/api/user/${currentUser?.clerkId}/unfollow/${user?._id}`,
         {
           method: "POST",
         },

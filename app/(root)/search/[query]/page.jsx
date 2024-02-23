@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SearchPost = () => {
-  const { query } = useParams();
+  
   const [loading, setLoading] = useState(false);
   const [searchedByPosts, setSearchedByPosts] = useState(null);
   const [searchedByPeople, setSearchedByPeople] = useState(null);
@@ -13,8 +13,8 @@ const SearchPost = () => {
   useEffect(() => {
     setLoading(true);
     const apiUrls = [
-      `/api/search/posts/${query}`,
-      `/api/search/people/${query}`,
+      `/api/search/posts/${param?.query}`,
+      `/api/search/people/${params?.query}`,
     ];
     Promise.all(apiUrls.map((url) => fetch(url).then((res) => res.json())))
       .then(([posts, people]) => {

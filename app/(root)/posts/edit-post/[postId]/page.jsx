@@ -40,7 +40,7 @@ const EditPost = ({ params }) => {
       ) : (
         <PostForm
           post={postData}
-          apiEndPoint={`/api/post/${params.postId}`}
+          apiEndPoint={`/api/post/${params?.postId}`}
           creatorClerkId={creatorClerkId}
         />
       )}

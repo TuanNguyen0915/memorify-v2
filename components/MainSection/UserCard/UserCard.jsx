@@ -13,7 +13,7 @@ const UserCard = ({ user }) => {
     try {
       setLoading(true);
       const getCurrentUser = async () => {
-        const res = await fetch(`/api/user/${userClerkId.id}`);
+        const res = await fetch(`/api/user/${userClerkId?.id}`);
         const data = await res.json();
         setCurrentUser(data);
       };
@@ -31,7 +31,7 @@ const UserCard = ({ user }) => {
   const handleUnfollow = async () => {
     try {
       const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/unfollow/${user._id}`,
+        `/api/user/${currentUser?.clerkId}/unfollow/${user?._id}`,
         {
           method: "POST",
         },
@@ -45,7 +45,7 @@ const UserCard = ({ user }) => {
   const handleFollow = async () => {
     try {
       const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/follow/${user._id}`,
+        `/api/user/${currentUser?.clerkId}/follow/${user?._id}`,
         {
           method: "POST",
         },
