@@ -2,6 +2,7 @@
 import ShowContent from "@/components/Profile/ShowContent";
 import UserInfo from "@/components/Profile/UserInfo";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { getUser, handleError } from "@/services/user.service";
 import { useEffect, useState } from "react";
 
 const buttons = [
@@ -20,14 +21,13 @@ const ProfilePage = ({ params }) => {
     try {
       setLoading(true);
       const fetchData = async () => {
-        const res = await fetch(`/api/user/${params?.id}`);
-        const data = await res.json();
+        const data = await getUser(params?.id);
         setSelectedUser(data);
         setLoading(false)
       };
       fetchData();
     } catch (error) {
-      console.log(error);
+      handleError(error)
     }
   }, [params.id]);
 

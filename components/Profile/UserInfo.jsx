@@ -3,6 +3,7 @@ import { TiUserAdd, TiUserDelete } from "react-icons/ti";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { follow, getUser, handleError, unfollow } from "@/services/user.service";
 
 const UserInfo = ({ user }) => {
   const { user: currentUserClerk } = useUser();
@@ -16,45 +17,29 @@ const UserInfo = ({ user }) => {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const res = await fetch(`/api/user/${currentUserClerk?.id}`);
-        const data = await res.json();
+        const data = await getUser(currentUserClerk?.id)
         setCurrentUser(data);
       };
       fetchData();
     } catch (error) {
       console.log(error);
     }
-  }, [setCurrentUser]);
+  }, [setCurrentUser,currentUserClerk]);
 
-  const handleAddFollow = async () => {
+  const handleUnfollow = async () => {
     try {
-      const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/follow/${user?._id}`,
-        {
-          method: "POST",
-        },
-      );
-      const data = await res.json();
+      const data = await unfollow(currentUser?.clerkId, user?._id);
       setCurrentUser(data);
     } catch (error) {
-      console.log(error);
-      throw new Error(error);
+      handleError(error);
     }
   };
-
-  const handleUnFollow = async () => {
+  const handleFollow = async () => {
     try {
-      const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/unfollow/${user?._id}`,
-        {
-          method: "POST",
-        },
-      );
-      const data = await res.json();
+      const data = await follow(currentUser?.clerkId, user?._id);
       setCurrentUser(data);
     } catch (error) {
-      console.log(error);
-      throw new Error(error);
+      handleError(error);
     }
   };
 
@@ -81,12 +66,12 @@ const UserInfo = ({ user }) => {
         {isFollowing ? (
           <TiUserDelete
             className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
-            onClick={handleUnFollow}
+            onClick={handleUnfollow}
           />
         ) : (
           <TiUserAdd
             className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
-            onClick={handleAddFollow}
+            onClick={handleFollow}
           />
         )}
       </div>

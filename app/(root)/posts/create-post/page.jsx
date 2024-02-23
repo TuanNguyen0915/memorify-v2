@@ -1,6 +1,7 @@
 "use client";
 import PostForm from "@/components/form/PostForm";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { getUser, handleError } from "@/services/user.service";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
@@ -8,20 +9,17 @@ const CreatePostPage = () => {
   const { user, isLoaded } = useUser();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const getUser = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(`/api/user/${user?.id}`);
-      const data = await res.json();
-      setUserData(data);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   useEffect(() => {
-    if (user) {
-      getUser();
+    try {
+      setLoading(true)
+      const fetchData = async ()=> {
+        const data = await getUser(user?.id)
+        setUserData(data)
+        setLoading(false)
+      }
+      fetchData()
+    } catch (error) {
+      handleError(error)
     }
   }, [user]);
 

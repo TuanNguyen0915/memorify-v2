@@ -5,6 +5,7 @@ import NavLinks from "@/components/LeftSidebar/NavLinks";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { Spinner } from "../Spinner/Spinner";
+import {getUser, handleError } from "@/services/user.service";
 
 const LeftSidebar = () => {
   const { user } = useUser();
@@ -15,16 +16,14 @@ const LeftSidebar = () => {
     setLoading(true);
     try {
       const fetchData = async () => {
-        const res = await fetch(`/api/user/${user?.id}`);
-        const data = await res.json();
+        const data = await getUser(user?.id);
         setCurrentUser(data);
         setLoading(false);
       };
-      fetchData()
+      fetchData();
     } catch (error) {
       setLoading(false);
-      console.log(error);
-      throw new Error(error);
+      handleError(error);
     }
   }, [user]);
   return (

@@ -1,0 +1,32 @@
+export const getUser = async (clerkId) => {
+  const res = await fetch(`/api/user/${clerkId}`);
+  const data = await res.json();
+  return data;
+};
+
+export const searchPeople = async(searchTerm) => {
+  const res = await fetch(`/api/search/people/${searchTerm}`);
+  const data = await res.json();
+  return data
+}
+
+export const follow = async(currentId, selectedId) => {
+  const res = await fetch(`/api/user/${currentId}/follow/${selectedId}`, {
+    method: "POST"
+  })
+  const data = await res.json()
+  return data
+}
+
+export const unfollow = async(currentId, selectedId) => {
+  const res = await fetch(`/api/user/${currentId}/unfollow/${selectedId}`, {
+    method: "POST"
+  })
+  const data = await res.json()
+  return data
+}
+
+export const handleError = (error) => {
+  console.log(error);
+  throw new Error(error);
+};

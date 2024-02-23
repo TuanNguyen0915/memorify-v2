@@ -1,27 +1,26 @@
 "use client";
 import SearchPage from "@/components/Search/SearchPage";
 import { Spinner } from "@/components/Spinner/Spinner";
+import { searchPosts } from "@/services/post.service";
+import { handleError, searchPeople } from "@/services/user.service";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SearchPost = () => {
-  
+  const { query } = useParams();
   const [loading, setLoading] = useState(false);
   const [searchedByPosts, setSearchedByPosts] = useState(null);
   const [searchedByPeople, setSearchedByPeople] = useState(null);
- 
+
   useEffect(() => {
     setLoading(true);
-    const apiUrls = [
-      `/api/search/posts/${param?.query}`,
-      `/api/search/people/${params?.query}`,
-    ];
-    Promise.all(apiUrls.map((url) => fetch(url).then((res) => res.json())))
+    const apis = [searchPosts(query), searchPeople(query)];
+    Promise.all(apis.map((api) => api))
       .then(([posts, people]) => {
         setSearchedByPosts(posts);
         setSearchedByPeople(people);
       })
-      .catch((err) => console.log(err))
+      .catch((error) => handleError(error))
       .finally(setLoading(false));
   }, [query]);
 

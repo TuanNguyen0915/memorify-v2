@@ -1,36 +1,35 @@
 "use client";
 import { Spinner } from "@/components/Spinner/Spinner";
 import PostForm from "@/components/form/PostForm";
+import { getPost } from "@/services/post.service";
+import { handleError } from "@/services/user.service";
 import { useEffect, useState } from "react";
 
 const EditPost = ({ params }) => {
   const [loading, setLoading] = useState(false);
   const [postData, setPostData] = useState({});
   const [creatorClerkId, setCreatorClerkId] = useState(null);
-  const getPost = async () => {
+
+  useEffect(() => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/post/${params.postId}`);
-      const data = await res.json();
-      setPostData({
-        creator: data.creator?._id,
-        caption: data.caption,
-        tag: data.tag,
-        postPhoto: data.postPhoto,
-      });
-      setCreatorClerkId(data.creator?.clerkId);
+      const fetchData = async () => {
+        const data = await getPost(params?.postId);
+        setPostData({
+          creator: data.creator?._id,
+          caption: data.caption,
+          tag: data.tag,
+          postPhoto: data.postPhoto,
+        });
+        setCreatorClerkId(data.creator?._id);
+        setLoading(false);
+      };
+      fetchData()
     } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    if (params.postId) {
-      getPost();
+      handleError(error);
     }
   }, [params.postId]);
+
   return (
     <div className="min-h-screen w-full">
       {loading ? (

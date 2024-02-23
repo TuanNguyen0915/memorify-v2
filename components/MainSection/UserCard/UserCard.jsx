@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { follow, getUser, handleError, unfollow } from "@/services/user.service";
 
 const UserCard = ({ user }) => {
   const { user: userClerkId } = useUser();
@@ -13,16 +14,14 @@ const UserCard = ({ user }) => {
     try {
       setLoading(true);
       const getCurrentUser = async () => {
-        const res = await fetch(`/api/user/${userClerkId?.id}`);
-        const data = await res.json();
+        const data = await getUser(userClerkId?.id)
         setCurrentUser(data);
       };
       getCurrentUser();
+      setLoading(false)
     } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+      handleError(error)
+    } 
   }, [setCurrentUser]);
 
   const isFollowing = currentUser?.followings?.find(
@@ -30,30 +29,18 @@ const UserCard = ({ user }) => {
   );
   const handleUnfollow = async () => {
     try {
-      const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/unfollow/${user?._id}`,
-        {
-          method: "POST",
-        },
-      );
-      const data = await res.json();
-      setCurrentUser(data);
+      const data = await unfollow(currentUser?.clerkId,user?._id)
+      setCurrentUser(data)
     } catch (error) {
-      throw new Error(error);
+      handleError(error)
     }
   };
   const handleFollow = async () => {
     try {
-      const res = await fetch(
-        `/api/user/${currentUser?.clerkId}/follow/${user?._id}`,
-        {
-          method: "POST",
-        },
-      );
-      const data = await res.json();
+      const data = await follow(currentUser?.clerkId,user?._id)
       setCurrentUser(data);
     } catch (error) {
-      throw new Error(error);
+      handleError(error)
     }
   };
   return (
