@@ -22,7 +22,6 @@ const FeedCard = ({ post, update }) => {
   const getUpdatePost = async () => {
     try {
       const data = await getPost(post?._id);
-
       setUpdatedPost(data);
     } catch (error) {
       handleError(error);

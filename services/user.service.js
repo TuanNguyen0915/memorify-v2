@@ -1,7 +1,11 @@
-import { currentUser } from "@clerk/nextjs";
-
 export const getUser = async (clerkId) => {
   const res = await fetch(`/api/user/${clerkId}`);
+  const data = await res.json();
+  return data;
+};
+
+export const getAllUsers = async () => {
+  const res = await fetch("/api/user");
   const data = await res.json();
   return data;
 };
@@ -48,3 +52,5 @@ export const handleError = (error) => {
   console.log(error);
   throw new Error(error);
 };
+
+

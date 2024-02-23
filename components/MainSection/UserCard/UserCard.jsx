@@ -52,7 +52,8 @@ const UserCard = ({ user }) => {
     <>
       {loading ? (
         <Spinner />
-      ) : (
+      ) : 
+      (
         <div className="flexBetween w-full gap-10 border-b border-b-slate-600 p-4 xl:w-3/4">
           <div className="flexBetween w-full">
             <Link

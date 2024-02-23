@@ -27,7 +27,7 @@ export const navLinks = [
   },
   {
     name: "People",
-    route: "/user",
+    route: "/users",
     icon: <IoPeopleOutline />,
   },
 ];
