@@ -9,32 +9,7 @@ const SearchPost = () => {
   const [loading, setLoading] = useState(false);
   const [searchedByPosts, setSearchedByPosts] = useState(null);
   const [searchedByPeople, setSearchedByPeople] = useState(null);
-  //region: SOLUTION 1
-  // const getSearchedPosts = async () => {
-  //   try {
-  //     const response = await fetch(`/api/search/posts/${query}`);
-  //     const data = await response.json();
-  //     setSearchedByPosts(data);
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const getSearchedByPeople = async () => {
-  //   try {
-  //     const response = await fetch(`/api/search/people/${query}`);
-  //     const data = await response.json();
-  //     setSearchedByPeople(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(()=> {
-  //   Promise.all([getSearchedPosts(), getSearchedByPeople()])
-  // },[query])
-  //endregion
-
+ 
   useEffect(() => {
     setLoading(true);
     const apiUrls = [

@@ -50,7 +50,7 @@ const Topbar = () => {
         onClick={() => router.push("/posts/create-post")}
         className="hidden gap-4 btn xl:flexCenter"
       >
-        <TiPlus className="scale-[2]" />
+        <TiPlus className="scale-150" />
         <p className="font-semibold">New Post</p>
       </button>
       {/*SMALL VIEW*/}

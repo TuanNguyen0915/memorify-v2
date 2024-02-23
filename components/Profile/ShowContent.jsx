@@ -1,8 +1,9 @@
 import FeedCard from "../MainSection/FeedCard/FeedCard";
+import { Spinner } from "../Spinner/Spinner";
 
 
 const ShowContent = ({ btnId, user }) => {
-  console.log(user.posts[0])
+  if (!user) return <Spinner />
   return (
     <>
       {btnId === 1 && (
@@ -12,8 +13,9 @@ const ShowContent = ({ btnId, user }) => {
           ))}
         </div>
       )}
-      {btnId === 2 && <div>Will show followers</div>}
-      {btnId === 3 && <div>Will show followings</div>}
+      {btnId === 2 && <div>Will show followers {user.followers.length}</div>}
+      
+      {btnId === 3 && <div>Will show followings {user.followings.length}</div>}
     </>
   );
 };

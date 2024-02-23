@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
     if (user) {
       getUser();
     }
-  }, [user]);
+  }, [setUserData, user]);
   return (
     <main className="flex gap-10 root">
       {loading || !isLoaded ? (

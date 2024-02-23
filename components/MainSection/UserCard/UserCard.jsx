@@ -23,26 +23,49 @@ const UserCard = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  }, [userClerkId]);
+  }, [setCurrentUser]);
 
-  const isFollowing = currentUser?.followings?.includes(user._id);
-  
-  const handleUnfollow =()=> {
-    console.log("handleUnfollow")
-  }
-  const handleFollow =()=> {
-    console.log('handleFollow')
-  }
+  const isFollowing = currentUser?.followings?.find(
+    (item) => item._id.toString() === user._id.toString(),
+  );
+  const handleUnfollow = async () => {
+    try {
+      const res = await fetch(
+        `/api/user/${currentUser?.clerkId}/unfollow/${user._id}`,
+        {
+          method: "POST",
+        },
+      );
+      const data = await res.json();
+      setCurrentUser(data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+  const handleFollow = async () => {
+    try {
+      const res = await fetch(
+        `/api/user/${currentUser?.clerkId}/follow/${user._id}`,
+        {
+          method: "POST",
+        },
+      );
+      const data = await res.json();
+      setCurrentUser(data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
-        <div className="w-full gap-10 border-b border-b-slate-600 p-4 flexBetween xl:w-3/4">
-          <div className="w-full flexBetween">
+        <div className="flexBetween w-full gap-10 border-b border-b-slate-600 p-4 xl:w-3/4">
+          <div className="flexBetween w-full">
             <Link
               href={`/profile/${user.clerkId}`}
-              className="gap-4 flexCenter group"
+              className="flexCenter group gap-4"
             >
               <>
                 <div>
@@ -58,7 +81,7 @@ const UserCard = ({ user }) => {
                   <p className="font-bold duration-500 group-hover:text-indigo-500 xl:text-2xl">
                     {user.firstName} {user.lastName}
                   </p>
-                  <p className="text-sm duration-500 text-textColor-200 group-hover:text-textColor-100 xl:text-lg">
+                  <p className="text-sm text-textColor-200 duration-500 group-hover:text-textColor-100 xl:text-lg">
                     @{user.username}
                   </p>
                 </div>
@@ -66,9 +89,15 @@ const UserCard = ({ user }) => {
             </Link>
           </div>
           {isFollowing ? (
-            <TiUserDelete className="cursor-pointer duration-500 size-8 hover:text-indigo-500" onClick={handleUnfollow}/>
+            <TiUserDelete
+              className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
+              onClick={handleUnfollow}
+            />
           ) : (
-            <TiUserAdd className="cursor-pointer duration-500 size-8 hover:text-indigo-500" onClick={handleFollow}/>
+            <TiUserAdd
+              className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
+              onClick={handleFollow}
+            />
           )}
         </div>
       )}
