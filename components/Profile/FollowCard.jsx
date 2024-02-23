@@ -41,6 +41,15 @@ const FollowCard = ({ user, update }) => {
       handleError(error);
     }
   };
+  const handleFollow = async () => {
+    try {
+      const data = await follow(currentUser?.clerkId, user?._id);
+      setCurrentUser(data);
+      update()
+    } catch (error) {
+      handleError(error);
+    }
+  };
   return (
     <>
       {loading ? (
@@ -74,10 +83,15 @@ const FollowCard = ({ user, update }) => {
             </Link>
           </div>
           {currentUser?._id !== user?._id &&
-            (isFollowing && (
+            (isFollowing ? (
               <TiUserDelete
                 className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
                 onClick={handleUnfollow}
+              />
+            ) : (
+              <TiUserAdd
+                className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
+                onClick={handleFollow}
               />
             ))}
         </div>
