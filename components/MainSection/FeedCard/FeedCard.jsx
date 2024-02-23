@@ -12,11 +12,23 @@ import {
   likePost,
   savePost,
 } from "@/services/user.service";
+import { getPost } from "@/services/post.service";
 
-const FeedCard = ({ post, update }) => {
+const FeedCard = ({ post }) => {
   const { user: currentUserClerk } = useUser();
   const [currentUser, setCurrentUser] = useState(null);
-  const likesLengthRef = useRef(post?.likes?.length);
+  const [updatedPost, setUpdatedPost] = useState(null);
+
+  const getUpdatePost = async () => {
+    try {
+      const data = await getPost(post?._id);
+      
+      setUpdatedPost(data);
+    } catch (error) {
+      handleError(error)
+    }
+  }
+
   //*TODO: handle save or un-save post
   const isSave = currentUser?.savePosts?.find(
     (item) => item?._id === post?._id,
@@ -26,11 +38,12 @@ const FeedCard = ({ post, update }) => {
     try {
       const data = await savePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
-      if (update) update();
     } catch (error) {
       handleError(error);
     }
   };
+
+
 
   //*TODO: handle like or un-like post
   const isLike = currentUser?.likePosts?.find(
@@ -41,7 +54,7 @@ const FeedCard = ({ post, update }) => {
     try {
       const data = await likePost(currentUserClerk?.id, post?._id);
       setCurrentUser(data);
-      if (update) update();
+      getUpdatePost()
     } catch (error) {
       handleError(error);
     }
@@ -53,6 +66,7 @@ const FeedCard = ({ post, update }) => {
         const data = await getUser(currentUserClerk?.id);
         setCurrentUser(data);
       };
+      getUpdatePost()
       fetchData();
     } catch (error) {
       handleError(error);
@@ -82,7 +96,7 @@ const FeedCard = ({ post, update }) => {
               )}
               {post?.likes?.length > 0 && (
                 <p className="font-semibold xl:text-xl">
-                  {likesLengthRef.current}
+                  {updatedPost?.likes?.length}
                 </p>
               )}
             </div>
