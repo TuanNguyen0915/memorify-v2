@@ -6,8 +6,12 @@ import { useRouter } from "next/navigation";
 import { TiPlus } from "react-icons/ti";
 import { SignedIn, SignOutButton, UserButton } from "@clerk/nextjs";
 import { HiOutlineLogout } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { RiAccountPinCircleLine } from "react-icons/ri";
+import Link from "next/link";
 
 const Topbar = () => {
+  const { currentUser } = useSelector((state) => state.currentUser);
   const [searchText, setSearchText] = useState("");
   const [err, setErr] = useState("");
   const router = useRouter();
@@ -64,9 +68,9 @@ const Topbar = () => {
       {/*SMALL VIEW*/}
       <div className="flex items-center justify-end gap-4 xl:hidden">
         <SignedIn>
-          <SignOutButton className="flex size-10 items-center">
-            <HiOutlineLogout className="duration-300" />
-          </SignOutButton>
+          <Link href={`/profile/${currentUser?.clerkId}`}>
+          <RiAccountPinCircleLine className="size-10"/>
+          </Link>
           <div className="flex size-10 items-center gap-4">
             <UserButton afterSignOutUrl="/" />
           </div>

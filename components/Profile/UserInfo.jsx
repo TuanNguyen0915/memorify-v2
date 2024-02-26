@@ -31,14 +31,6 @@ const UserInfo = ({ user }) => {
     }
   }, [setCurrentUser, currentUserClerk]);
 
-  const handleUnfollow = async () => {
-    try {
-      const data = await unfollow(currentUser?.clerkId, user?._id);
-      setCurrentUser(data);
-    } catch (error) {
-      handleError(error);
-    }
-  };
   const handleFollow = async () => {
     try {
       const data = await follow(currentUser?.clerkId, user?._id);
@@ -74,7 +66,7 @@ const UserInfo = ({ user }) => {
               {isFollowing ? (
                 <TiUserDelete
                   className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
-                  onClick={handleUnfollow}
+                  onClick={handleFollow}
                 />
               ) : (
                 <TiUserAdd
