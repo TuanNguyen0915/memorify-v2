@@ -11,13 +11,13 @@ import { getPost } from "@/services/post.service";
 const FeedCard = ({ post, update }) => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.currentUser);
-  const [updatePost, setUpdatePost] = useState(null)
+  const [updatePost, setUpdatePost] = useState(null);
   const getUpdatePost = async () => {
     try {
       const data = await getPost(post?._id);
-      setUpdatePost(data)
+      setUpdatedPost(data);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     }
   };
 
@@ -29,9 +29,9 @@ const FeedCard = ({ post, update }) => {
     try {
       const data = await savePost(currentUser?.clerkId, post?._id);
       dispatch(setCurrentUserSuccess(data));
-      if(update) update()
+      if (update) update();
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   };
 
@@ -43,9 +43,9 @@ const FeedCard = ({ post, update }) => {
     try {
       const data = await likePost(currentUser?.clerkId, post?._id);
       dispatch(setCurrentUserSuccess(data));
-      if(update) update()
+      if (update) update();
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   };
 
