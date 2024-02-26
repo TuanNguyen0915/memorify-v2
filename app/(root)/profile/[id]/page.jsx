@@ -6,14 +6,13 @@ import { buttons } from "@/constants";
 import { getUser, handleError } from "@/services/user.service";
 import { useEffect, useState } from "react";
 
-
 const ProfilePage = ({ params }) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [btnId, setBtnId] = useState(1);
 
-  const fetchData = async () => {
+  const getSelectedUser = async () => {
     const data = await getUser(params?.id);
     setSelectedUser(data);
     setLoading(false);
@@ -22,12 +21,11 @@ const ProfilePage = ({ params }) => {
   useEffect(() => {
     try {
       setLoading(true);
-      fetchData();
+      getSelectedUser();
     } catch (error) {
       handleError(error);
     }
   }, [params.id]);
-
   return (
     <div className="min-h-screen[30vh] flexCenter w-full">
       {loading || !selectedUser ? (
@@ -51,7 +49,11 @@ const ProfilePage = ({ params }) => {
             ))}
           </div>
           {/* SHOW INFO BASE ON BUTTON CLICK */}
-          <ShowContent btnId={btnId} user={selectedUser} update={fetchData} />
+          <ShowContent
+            btnId={btnId}
+            user={selectedUser}
+            update={getSelectedUser}
+          />
         </div>
       )}
     </div>

@@ -1,36 +1,24 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CreatorInfo from "./CreatorInfo";
 import PostInfo from "./PostInfo";
-
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { HiOutlineBookmark, HiBookmark } from "react-icons/hi2";
-import { useUser } from "@clerk/nextjs";
-import {
-  getUser,
-  handleError,
-  likePost,
-  savePost,
-} from "@/services/user.service";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUserSuccess } from "@/lib/redux/slices/currentUserSlice";
+import { handleError, likePost, savePost } from "@/services/user.service";
 import { getPost } from "@/services/post.service";
-
 const FeedCard = ({ post, update }) => {
-  const { user: currentUserClerk } = useUser();
-  const [currentUser, setCurrentUser] = useState(null);
-  const [updatedPost, setUpdatedPost] = useState(null);
-
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.currentUser);
+  const [updatePost, setUpdatePost] = useState(null)
   const getUpdatePost = async () => {
     try {
       const data = await getPost(post?._id);
-
-      setUpdatedPost(data);
+      setUpdatePost(data)
     } catch (error) {
-      handleError(error);
+      handleError(error)
     }
-  };
-  const updatedCurrentUser = async () => {
-    const data = await getUser(currentUserClerk?.id);
-    setCurrentUser(data);
   };
 
   //*TODO: handle save or un-save post
@@ -39,11 +27,11 @@ const FeedCard = ({ post, update }) => {
   );
   const handleSave = async () => {
     try {
-      const data = await savePost(currentUserClerk?.id, post?._id);
-      setCurrentUser(data);
-      if (update) update()
+      const data = await savePost(currentUser?.clerkId, post?._id);
+      dispatch(setCurrentUserSuccess(data));
+      if(update) update()
     } catch (error) {
-      handleError(error);
+      throw new Error(error)
     }
   };
 
@@ -53,27 +41,20 @@ const FeedCard = ({ post, update }) => {
   );
   const handleLike = async () => {
     try {
-      const data = await likePost(currentUserClerk?.id, post?._id);
-      setCurrentUser(data);
-      getUpdatePost();
+      const data = await likePost(currentUser?.clerkId, post?._id);
+      dispatch(setCurrentUserSuccess(data));
       if(update) update()
     } catch (error) {
-      handleError(error);
+      throw new Error(error)
     }
   };
 
   useEffect(() => {
-    try {
-      getUpdatePost();
-      updatedCurrentUser()
-    } catch (error) {
-      handleError(error);
-    }
-  }, [currentUserClerk, post]);
-
+    getUpdatePost();
+  }, [post]);
   return (
     <>
-      {currentUser && post && (
+      {post && (
         <div className="group my-4 flex w-full flex-col gap-4 rounded-lg bg-slate-950 p-4 hover:border hover:border-textColor-500 xl:p-10">
           <CreatorInfo post={post} />
           {/* POST INFO */}
@@ -93,7 +74,7 @@ const FeedCard = ({ post, update }) => {
               )}
               {post?.likes?.length > 0 && (
                 <p className="font-semibold xl:text-xl">
-                  {updatedPost?.likes?.length}
+                  {updatePost?.likes?.length}
                 </p>
               )}
             </div>

@@ -1,56 +1,29 @@
 "use client";
+import { useDispatch, useSelector } from "react-redux";
 import { TiUserAdd, TiUserDelete } from "react-icons/ti";
 import Link from "next/link";
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
-import {
-  follow,
-  getUser,
-  handleError,
-  unfollow,
-} from "@/services/user.service";
+import { setCurrentUserSuccess } from "@/lib/redux/slices/currentUserSlice";
+import { follow, handleError } from "@/services/user.service";
 
 const UserCard = ({ user }) => {
-  const { user: userClerkId } = useUser();
-  const [currentUser, setCurrentUser] = useState({});
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    try {
-      setLoading(true);
-      const getCurrentUser = async () => {
-        const data = await getUser(userClerkId?.id);
-        setCurrentUser(data);
-      };
-      getCurrentUser();
-      setLoading(false);
-    } catch (error) {
-      handleError(error);
-    }
-  }, [setCurrentUser]);
-
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.currentUser);
   const isFollowing = currentUser?.followings?.find(
     (item) => item._id.toString() === user._id.toString(),
   );
-  const handleUnfollow = async () => {
-    try {
-      const data = await unfollow(currentUser?.clerkId, user?._id);
-      setCurrentUser(data);
-    } catch (error) {
-      handleError(error);
-    }
-  };
+
   const handleFollow = async () => {
     try {
       const data = await follow(currentUser?.clerkId, user?._id);
-      setCurrentUser(data);
+      dispatch(setCurrentUserSuccess(data));
     } catch (error) {
       handleError(error);
     }
   };
   return (
     <>
-      {loading ? (
+      {!user ? (
         <Spinner />
       ) : (
         <div className="flexBetween w-full gap-10 border-b border-b-slate-600 p-4 xl:w-3/4">
@@ -84,7 +57,7 @@ const UserCard = ({ user }) => {
             (isFollowing ? (
               <TiUserDelete
                 className="size-8 cursor-pointer duration-500 hover:text-indigo-500"
-                onClick={handleUnfollow}
+                onClick={handleFollow}
               />
             ) : (
               <TiUserAdd

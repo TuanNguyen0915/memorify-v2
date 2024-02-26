@@ -1,33 +1,47 @@
 "use client";
+import { useUser } from "@clerk/nextjs";
 import FeedCard from "@/components/MainSection/FeedCard/FeedCard";
 import { Spinner } from "@/components/Spinner/Spinner";
 import { getAllPosts } from "@/services/post.service";
 import { useEffect, useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAllPostsStart,
+  setAllPostsFailure,
+  setAllPostsSuccess,
+} from "@/lib/redux/slices/allPostsSlice";
+import { setCurrentUserSuccess } from "@/lib/redux/slices/currentUserSlice";
+import { getUser } from "@/services/user.service";
 const HomePage = () => {
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-
+  const { user } = useUser();
+  const dispatch = useDispatch();
+  const { loading, allPosts } = useSelector((state) => state.allPosts);
+  const fetchPosts = async () => {
+    let data = await getAllPosts();
+    dispatch(setAllPostsSuccess(data));
+  };
+  const fetchCurrentUser = async () => {
+    let data = await getUser(user?.id);
+    dispatch(setCurrentUserSuccess(data));
+  };
   useEffect(() => {
-    try {
-      setLoading(true);
-      const fetchData = async () => {
-        let data = await getAllPosts();
-        setPosts(data);
-        setLoading(false);
-      };
-      fetchData();
-      setLoading(false);
-    } catch (error) {
-      handleError(error);
+    if (user?.id) {
+      try {
+        dispatch(setAllPostsStart());
+        Promise.all([fetchPosts(), fetchCurrentUser()]);
+      } catch (error) {
+        dispatch(setAllPostsFailure(error));
+        handleError(error);
+      }
     }
-  }, []);
+  }, [user?.id]);
+
   return (
     <section className="flex w-full flex-col items-center max-xl:px-4">
-      {loading && posts ? (
+      {loading && !allPosts ? (
         <Spinner />
       ) : (
-        posts?.map((post) => <FeedCard post={post} key={post._id} />)
+        allPosts?.map((post) => <FeedCard post={post} key={post._id} update={fetchPosts}/>)
       )}
     </section>
   );

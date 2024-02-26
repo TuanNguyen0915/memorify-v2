@@ -21,7 +21,7 @@ const EditPost = ({ params }) => {
           tag: data.tag,
           postPhoto: data.postPhoto,
         });
-        setCreatorClerkId(data.creator?._id);
+        setCreatorClerkId(data.creator?.clerkId);
         setLoading(false);
       };
       fetchData()
