@@ -1,6 +1,7 @@
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
 import Topbar from "@/components/MainSection/Topbar";
 import Bottombar from "@/components/MainSection/Bottombar";
+import RightSidebar from "@/components/RightSidebar/RightSidebar";
 
 const Layout = ({ children }) => {
   return (
@@ -15,6 +16,9 @@ const Layout = ({ children }) => {
         </div>
         <Bottombar />
       </section>
+      <aside className="hidden xl:flex">
+        <RightSidebar />
+      </aside>
     </main>
   );
 };
