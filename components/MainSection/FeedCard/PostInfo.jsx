@@ -8,15 +8,13 @@ const PostInfo = ({ post }) => {
         {post?.caption}
       </h2>
       <div className="flexCenter w-full">
-        <Link href={`/posts/${post?._id}`}>
-          <Image
-            src={post?.postPhoto}
-            width={1000}
-            height={1000}
-            alt="post image"
-            className="max-h-[50vh] max-w-full rounded-lg object-contain duration-500 group-hover:scale-[1.05]"
-          />
-        </Link>
+        <Image
+          src={post?.postPhoto}
+          width={1000}
+          height={1000}
+          alt="post image"
+          className="max-h-[50vh] max-w-full rounded-lg object-contain duration-500 group-hover:scale-[1.05]"
+        />
       </div>
       <p className="text-base text-indigo-500 xl:text-xl">#{post?.tag}</p>
     </>
