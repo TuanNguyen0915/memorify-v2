@@ -6,33 +6,43 @@ import { getAllPosts } from "@/services/post.service";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setAllPostsStart,
-  setAllPostsFailure,
-  setAllPostsSuccess,
-} from "@/lib/redux/slices/allPostsSlice";
-import { setCurrentUserSuccess } from "@/lib/redux/slices/currentUserSlice";
-import { getUser } from "@/services/user.service";
+  setCurrentUserSuccess,
+  setCurrentUserFailure,
+  setCurrentUserStart,
+} from "@/lib/redux/slices/currentUserSlice";
+import { getUser, handleError } from "@/services/user.service";
 const HomePage = () => {
   const { user } = useUser();
   const dispatch = useDispatch();
-  const { loading, allPosts } = useSelector((state) => state.allPosts);
+  const { loading } = useSelector((state) => state.currentUser);
+  const [allPosts, setAllPosts] = useState([]);
   const fetchPosts = async () => {
-    dispatch(setAllPostsStart());
     let data = await getAllPosts();
-    dispatch(setAllPostsSuccess(data));
+    setAllPosts(data);
   };
-  fetchPosts();
   const fetchCurrentUser = async () => {
+    dispatch(setCurrentUserStart());
     let data = await getUser(user?.id);
     dispatch(setCurrentUserSuccess(data));
   };
   useEffect(() => {
+    if (user?.id) {
+      try {
+        fetchCurrentUser();
+      } catch (error) {
+        dispatch(setCurrentUserFailure(error));
+        handleError(error);
+      }
+    }
+  }, [user?.id]);
+
+  useEffect(() => {
     try {
-      fetchCurrentUser();
+      fetchPosts();
     } catch (error) {
       handleError(error);
     }
-  }, [user?.id]);
+  }, []);
 
   return (
     <section className="flex w-full flex-col items-center max-xl:px-4">
