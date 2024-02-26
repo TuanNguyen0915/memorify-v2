@@ -36,7 +36,7 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
       });
       setLoading(false);
       if (res.ok) {
-        router.push(`/profile/${creatorClerkId}`);
+        router.push("/");
       }
     } catch (error) {
       console.log(`Upload fail ${error}`);

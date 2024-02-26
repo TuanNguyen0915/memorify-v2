@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import CreatorInfo from "./CreatorInfo";
 import PostInfo from "./PostInfo";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import { MdDeleteOutline } from "react-icons/md";
 import { HiOutlineBookmark, HiBookmark } from "react-icons/hi2";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUserSuccess } from "@/lib/redux/slices/currentUserSlice";
 import { handleError, likePost, savePost } from "@/services/user.service";
-import { getPost } from "@/services/post.service";
+import { deletePost, getPost } from "@/services/post.service";
 const FeedCard = ({ post, update }) => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.currentUser);
@@ -20,7 +21,9 @@ const FeedCard = ({ post, update }) => {
       handleError(error);
     }
   };
-
+  const isCurrentUserPost = currentUser?.posts?.find(
+    (item) => item._id.toString() === post?._id.toString(),
+  );
   //*TODO: handle save or un-save post
   const isSave = currentUser?.savePosts?.find(
     (item) => item?._id === post?._id,
@@ -49,6 +52,21 @@ const FeedCard = ({ post, update }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const res = await deletePost(post?._id);
+      if (res) {
+        console.log('found')
+      } else {
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error)
+    }
+    if (update) update();
+  };
+
   useEffect(() => {
     getUpdatePost();
   }, [post]);
@@ -64,12 +82,12 @@ const FeedCard = ({ post, update }) => {
               {isLike ? (
                 <GoHeartFill
                   className="size-8 text-orange-500 duration-500 hover:text-indigo-700 xl:size-10"
-                  onClick={handleLike}
+                  onClick={()=>handleLike()}
                 />
               ) : (
                 <GoHeart
                   className="size-8 duration-500 hover:text-indigo-500 xl:size-10"
-                  onClick={handleLike}
+                  onClick={()=>handleLike()}
                 />
               )}
               {post?.likes?.length > 0 && (
@@ -79,15 +97,20 @@ const FeedCard = ({ post, update }) => {
               )}
             </div>
             <div className="flexCenter">
-              {isSave ? (
+              {isCurrentUserPost ? (
+                <MdDeleteOutline
+                  className="size-8 duration-500 hover:text-red-500 xl:size-10"
+                  onClick={()=>handleDelete()}
+                />
+              ) : isSave ? (
                 <HiBookmark
                   className="size-8 text-orange-500 duration-500 hover:text-orange-700 xl:size-10"
-                  onClick={handleSave}
+                  onClick={()=>handleSave()}
                 />
               ) : (
                 <HiOutlineBookmark
                   className="size-8 duration-500 hover:text-orange-500 xl:size-10"
-                  onClick={handleSave}
+                  onClick={()=>handleSave()}
                 />
               )}
             </div>

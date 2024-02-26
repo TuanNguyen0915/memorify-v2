@@ -12,6 +12,7 @@ const RightSidebar = () => {
             height={150}
             width={150}
             className="rounded-lg object-cover"
+            alt={ad.name}
           />
           <p className="font-semibold text-textColor-100">{ad.name}</p>
           <p className="text-sm italic text-textColor-200">{ad.desc}</p>

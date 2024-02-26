@@ -48,9 +48,9 @@ export const likePost = async (currentId, postId) => {
   return data;
 };
 
+
 export const handleError = (error) => {
   console.log(error);
   throw new Error(error);
 };
-
 
