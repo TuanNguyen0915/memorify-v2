@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 import { TiPlus } from "react-icons/ti";
@@ -11,6 +11,11 @@ const Topbar = () => {
   const [searchText, setSearchText] = useState("");
   const [err, setErr] = useState("");
   const router = useRouter();
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    scrollRef.current.scrollTo(0, 0);
+  });
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -27,7 +32,10 @@ const Topbar = () => {
     }
   };
   return (
-    <div className="mt-6 w-full gap-10 max-xl:px-4 flexBetween xl:w-3/4">
+    <div
+      className="flexBetween mt-6 w-full gap-10 max-xl:px-4 xl:w-3/4"
+      ref={scrollRef}
+    >
       <form
         onSubmit={handleSubmit}
         className={`${
@@ -48,7 +56,7 @@ const Topbar = () => {
       {/* CREATE A POST */}
       <button
         onClick={() => router.push("/posts/create-post")}
-        className="hidden gap-4 btn xl:flexCenter"
+        className="btn xl:flexCenter hidden gap-4"
       >
         <TiPlus className="scale-150" />
         <p className="font-semibold">New Post</p>
@@ -56,10 +64,10 @@ const Topbar = () => {
       {/*SMALL VIEW*/}
       <div className="flex items-center justify-end gap-4 xl:hidden">
         <SignedIn>
-          <SignOutButton className="flex items-center size-10">
+          <SignOutButton className="flex size-10 items-center">
             <HiOutlineLogout className="duration-300" />
           </SignOutButton>
-          <div className="flex items-center gap-4 size-10">
+          <div className="flex size-10 items-center gap-4">
             <UserButton afterSignOutUrl="/" />
           </div>
         </SignedIn>

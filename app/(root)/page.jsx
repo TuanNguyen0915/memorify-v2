@@ -17,22 +17,20 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const { loading, allPosts } = useSelector((state) => state.allPosts);
   const fetchPosts = async () => {
+    dispatch(setAllPostsStart());
     let data = await getAllPosts();
     dispatch(setAllPostsSuccess(data));
   };
+  fetchPosts();
   const fetchCurrentUser = async () => {
     let data = await getUser(user?.id);
     dispatch(setCurrentUserSuccess(data));
   };
   useEffect(() => {
-    if (user?.id) {
-      try {
-        dispatch(setAllPostsStart());
-        Promise.all([fetchPosts(), fetchCurrentUser()]);
-      } catch (error) {
-        dispatch(setAllPostsFailure(error));
-        handleError(error);
-      }
+    try {
+      fetchCurrentUser();
+    } catch (error) {
+      handleError(error);
     }
   }, [user?.id]);
 
@@ -41,7 +39,9 @@ const HomePage = () => {
       {loading && !allPosts ? (
         <Spinner />
       ) : (
-        allPosts?.map((post) => <FeedCard post={post} key={post._id} update={fetchPosts}/>)
+        allPosts?.map((post) => (
+          <FeedCard post={post} key={post._id} update={fetchPosts} />
+        ))
       )}
     </section>
   );

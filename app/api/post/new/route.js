@@ -8,7 +8,6 @@ export const POST = async (req) => {
     await connectDB();
     const data = await req.formData();
     let postPhoto = data.get('postPhoto')
-  
     const uploadImage = await uploadToCloudinary(postPhoto);
     const newPost = await Post.create({
       creator: data.get("creator"),
