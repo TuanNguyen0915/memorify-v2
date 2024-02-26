@@ -1,10 +1,13 @@
 "use client";
-import {useForm} from "react-hook-form";
-import {MdOutlineAddPhotoAlternate} from "react-icons/md";
+import { useForm } from "react-hook-form";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Spinner } from "../Spinner/Spinner";
 
 const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,6 +20,7 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
 
   const publishPost = async (data) => {
     try {
+      setLoading(true);
       const postForm = new FormData();
       postForm.append("creator", data.creator);
       postForm.append("caption", data.caption);
@@ -30,6 +34,7 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
         method: "POST",
         body: postForm,
       });
+      setLoading(false);
       if (res.ok) {
         router.push(`/profile/${creatorClerkId}`);
       }
@@ -43,8 +48,8 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
       onSubmit={handleSubmit(publishPost)}
     >
       {/*UPLOAD PHOTO OR EDIT PHOTO*/}
-      <div className="w-full flexCenter">
-        <label htmlFor="photo" className="cursor-pointer group">
+      <div className="flexCenter w-full">
+        <label htmlFor="photo" className="group cursor-pointer">
           {watch("postPhoto") ? (
             typeof watch("postPhoto") === "string" ? (
               <Image
@@ -52,7 +57,7 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
                 alt="post photo"
                 width={1000}
                 height={1000}
-                className="max-w-full rounded-lg object-contain max-h-[50vh]"
+                className="max-h-[50vh] max-w-full rounded-lg object-contain"
               />
             ) : (
               watch("postPhoto")?.length > 0 && (
@@ -61,14 +66,13 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
                   alt="post photo"
                   width={1000}
                   height={1000}
-                  className="max-w-full rounded-lg object-contain max-h-[50vh]"
+                  className="max-h-[50vh] max-w-full rounded-lg object-contain"
                 />
               )
             )
           ) : (
             <div className="flex items-center gap-10">
-              <MdOutlineAddPhotoAlternate
-                className="duration-300 size-24 text-textColor-100 group-hover:text-primary-100 xl:size-52"/>
+              <MdOutlineAddPhotoAlternate className="size-24 text-textColor-100 duration-300 group-hover:text-primary-100 xl:size-52" />
               <p className="text-center text-xl font-bold text-primary-100 group-hover:text-textColor-100">
                 {" "}
                 Select a file{" "}
@@ -143,10 +147,11 @@ const PostForm = ({ post, apiEndPoint, creatorClerkId }) => {
         {errors.tag && <p className="text-red-400">{errors.tag.message}</p>}
       </div>
       <button
+        disabled={loading}
         type="submit"
-        className="w-full btn-submit"
+        className={`btn-submit w-full ${loading ? "disabled:opacity-40" : ""}`}
       >
-        Publish
+        {loading ? <Spinner /> : "Publish"}
       </button>
     </form>
   );
